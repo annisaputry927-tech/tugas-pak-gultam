@@ -276,7 +276,7 @@ loginForm.addEventListener("submit", function(event) {
     const username = usernameInput.value.trim();
     const password = passwordInput.value.trim();
 
-    if (username === "" || password === "") {
+    if (username === "admin" || password === "12345") {
         alert("Username dan password wajib diisi!");
         return;
     }
