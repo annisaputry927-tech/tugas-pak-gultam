@@ -3,200 +3,616 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PawPastel Petshop & Supplies</title>
-    <!-- Fonts & Icons -->
+
+    <title>PawPastel Petshop</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Leaflet Maps CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- OVERLAY LOGIN -->
-    <div id="loginOverlay" class="login-overlay">
-        <div class="login-box">
-            <div class="login-header">
-                <i class="fa-solid fa-paw login-icon"></i>
-                <h2>PawPastel</h2>
-                <p>Silakan masuk untuk mulai berbelanja kebutuhan anabul!</p>
-            </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username"><i class="fa-solid fa-user"></i> Nama Pengguna</label>
-                    <input type="text" id="username" placeholder="Masukkan nama Anda..." required>
-                </div>
-                <div class="form-group">
-                    <label for="password"><i class="fa-solid fa-lock"></i> Kata Sandi</label>
-                    <input type="password" id="password" placeholder="Masukkan kata sandi..." required>
-                </div>
-                <button type="submit" class="btn-primary-login">
-                    <i class="fa-solid fa-right-to-bracket"></i> Masuk Sekarang
-                </button>
-            </form>
+<!-- ================= LOGIN ================= -->
+
+<div id="loginOverlay" class="login-overlay">
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            <i class="fa-solid fa-paw"></i>
         </div>
-    </div>
 
-    <!-- MAIN APP CONTAINER -->
-    <div id="appContainer" class="app-container hidden">
-        
-        <!-- HEADER / NAVBAR -->
-        <header class="navbar">
-            <div class="nav-brand">
-                <i class="fa-solid fa-paw brand-icon"></i>
-                <div>
-                    <h1>PawPastel</h1>
-                    <span>Happy Pets, Happy Life</span>
-                </div>
+        <h1>PawPastel</h1>
+
+        <p>
+            Happy Pets, Happy Life 🐾
+        </p>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+
+                <label>
+                    <i class="fa-solid fa-user"></i>
+                    Nama Pengguna
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Masukkan nama Anda"
+                    required
+                >
+
             </div>
 
-            <div class="user-badge">
-                <i class="fa-solid fa-circle-user"></i>
-                <span id="displayUsername">Pelanggan</span>
-                <button id="btnLogout" class="btn-logout" title="Keluar"><i class="fa-solid fa-power-off"></i></button>
+
+            <div class="input-group">
+
+                <label>
+                    <i class="fa-solid fa-lock"></i>
+                    Kata Sandi
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Masukkan kata sandi"
+                    required
+                >
+
             </div>
-        </header>
 
-        <!-- MAIN LAYOUT -->
-        <main class="main-layout">
-            
-            <!-- LEFT COLUMN: PET CATEGORIES & PRODUCT GRID -->
-            <section class="left-section">
-                <!-- PET CATEGORY FILTER -->
-                <div class="pet-category-bar">
-                    <h3><i class="fa-solid fa-shield-cat"></i> Pilih Jenis Hewan:</h3>
-                    <div class="category-buttons">
-                        <button class="cat-btn active" data-category="all"><i class="fa-solid fa-border-all"></i> Semua</button>
-                        <button class="cat-btn" data-category="kucing"><i class="fa-solid fa-cat"></i> Kucing</button>
-                        <button class="cat-btn" data-category="anjing"><i class="fa-solid fa-dog"></i> Anjing</button>
-                        <button class="cat-btn" data-category="hamster"><i class="fa-solid fa-otter"></i> Hamster</button>
-                        <button class="cat-btn" data-category="kelinci"><i class="fa-solid fa-staff-snake"></i> Kelinci</button>
-                        <button class="cat-btn" data-category="otter"><i class="fa-solid fa-water"></i> Otter (Lutra)</button>
-                    </div>
-                </div>
 
-                <!-- PRODUCT GRID -->
-                <div id="productGrid" class="product-grid">
-                    <!-- Loaded dynamically via JS -->
-                </div>
-            </section>
+            <button type="submit" class="login-button">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Masuk Sekarang
+            </button>
 
-            <!-- RIGHT COLUMN: CART, RECEIPT, MUSIC & MAP -->
-            <section class="right-section">
-                
-                <!-- SHOPPING CART PANEL -->
-                <div class="card-panel cart-panel">
-                    <h2><i class="fa-solid fa-cart-shopping"></i> Keranjang Belanja</h2>
-                    
-                    <div id="cartItems" class="cart-items-list">
-                        <p class="empty-cart-text">Keranjang masih kosong. Pilih produk untuk menambahkan.</p>
-                    </div>
+        </form>
 
-                    <div class="cart-summary">
-                        <div class="summary-row">
-                            <span>Subtotal:</span>
-                            <span id="subtotalAmount">Rp 0</span>
-                        </div>
-                        <div class="summary-row discount-row">
-                            <span>Diskon Promo (10%):</span>
-                            <span id="discountAmount">- Rp 0</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Pajak PPN (11%):</span>
-                            <span id="taxAmount">Rp 0</span>
-                        </div>
-                        <hr class="summary-divider">
-                        <div class="summary-row total-row">
-                            <span>Total Pembayaran:</span>
-                            <span id="totalAmount">Rp 0</span>
-                        </div>
-
-                        <div class="cart-actions">
-                            <button id="btnExportExcel" class="btn-excel" disabled>
-                                <i class="fa-solid fa-file-excel"></i> Simpan Transaksi Ke Excel
-                            </button>
-                            <button id="btnCheckout" class="btn-checkout" disabled>
-                                <i class="fa-solid fa-receipt"></i> Cetak Struk Belanja
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MUSIC & VIDEO PLAYER PANEL -->
-                <div class="card-panel media-panel">
-                    <h2><i class="fa-solid fa-music"></i> Petshop Atmosphere Music</h2>
-                    
-                    <div class="video-wrapper">
-                        <iframe id="videoPlayer" src="https://www.youtube.com/embed/jfKfPfyJRdk?enablejsapi=1" title="Lofi Pet Shop Radio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-
-                    <div class="song-selector">
-                        <label for="songSelect"><i class="fa-solid fa-list-check"></i> Pilih Playlist Musik:</label>
-                        <select id="songSelect">
-                            <option value="jfKfPfyJRdk">Lofi Hip Hop - Beats to Relax/Study to</option>
-                            <option value="5qap5aO4i9A">Lofi Girl - Cozy Chill Beats</option>
-                            <option value="DWcJFNfaw9c">Relaxing Piano Music for Pets</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- MAP LOCATION PANEL -->
-                <div class="card-panel map-panel">
-                    <h2><i class="fa-solid fa-location-dot"></i> Lokasi Petshop Kami</h2>
-                    <p class="map-desc">Kunjungi toko fisik kami untuk perawatan dan fasilitas langsung!</p>
-                    <div id="map"></div>
-                </div>
-
-            </section>
-        </main>
     </div>
 
-    <!-- MODAL STRUK PEMBELIAN -->
-    <div id="receiptModal" class="modal-overlay hidden">
-        <div class="receipt-box">
-            <div class="receipt-header">
+</div>
+
+
+<!-- ================= APLIKASI ================= -->
+
+<div id="appContainer" class="hidden">
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
                 <i class="fa-solid fa-paw"></i>
-                <h2>PawPastel Petshop</h2>
-                <p>Jl. Pastel Ceria No. 88, Medan</p>
-                <p>Telp: (061) 7890-1234</p>
-                <hr class="receipt-dash">
-            </div>
-            
-            <div class="receipt-info">
-                <p><strong>No. Nota:</strong> <span id="receiptNo">INV-0000</span></p>
-                <p><strong>Tanggal:</strong> <span id="receiptDate">-</span></p>
-                <p><strong>Pelanggan:</strong> <span id="receiptCustomer">-</span></p>
             </div>
 
-            <hr class="receipt-dash">
-
-            <div id="receiptDetails" class="receipt-details">
-                <!-- Calculated dynamically -->
+            <div>
+                <h1>PawPastel</h1>
+                <span>Happy Pets, Happy Life</span>
             </div>
 
-            <hr class="receipt-dash">
-
-            <div class="receipt-totals">
-                <div class="r-row"><span>Subtotal:</span><span id="rSubtotal">Rp 0</span></div>
-                <div class="r-row"><span>Diskon (10%):</span><span id="rDiscount">- Rp 0</span></div>
-                <div class="r-row"><span>Pajak (11%):</span><span id="rTax">Rp 0</span></div>
-                <div class="r-row total"><span>TOTAL:</span><span id="rTotal">Rp 0</span></div>
-            </div>
-
-            <div class="receipt-footer">
-                <p>*** Terima Kasih Telah Berbelanja ***</p>
-                <p>Barang yang sudah dibeli tidak dapat ditukar.</p>
-                <button id="btnCloseReceipt" class="btn-close-receipt">Tutup Struk</button>
-            </div>
         </div>
+
+
+        <div class="user-area">
+
+            <i class="fa-solid fa-circle-user"></i>
+
+            <span id="displayUsername">
+                Pelanggan
+            </span>
+
+            <button id="btnLogout" title="Logout">
+                <i class="fa-solid fa-power-off"></i>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-container">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div>
+
+                <span class="hero-label">
+                    🐾 PETSHOP ONLINE
+                </span>
+
+                <h2>
+                    Semua Kebutuhan<br>
+                    <span>Anabul Kesayanganmu</span>
+                </h2>
+
+                <p>
+                    Temukan makanan, perlengkapan dan kebutuhan
+                    hewan peliharaan favoritmu di PawPastel.
+                </p>
+
+            </div>
+
+            <div class="hero-paw">
+                🐕 🐈 🐰
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="content-grid">
+
+
+            <!-- LEFT -->
+
+            <section class="products-section">
+
+                <div class="section-title">
+
+                    <div>
+                        <h2>
+                            <i class="fa-solid fa-store"></i>
+                            Produk PawPastel
+                        </h2>
+
+                        <p>
+                            Pilih kebutuhan hewan kesayanganmu
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- FILTER -->
+
+                <div class="category-bar">
+
+                    <button
+                        class="category-btn active"
+                        data-category="all">
+                        <i class="fa-solid fa-border-all"></i>
+                        Semua
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="kucing">
+                        🐱 Kucing
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="anjing">
+                        🐶 Anjing
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="hamster">
+                        🐹 Hamster
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="kelinci">
+                        🐰 Kelinci
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="otter">
+                        🦦 Otter
+                    </button>
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Cari produk..."
+                    >
+
+                </div>
+
+
+                <!-- PRODUCT -->
+
+                <div id="productGrid" class="product-grid"></div>
+
+            </section>
+
+
+
+            <!-- RIGHT -->
+
+            <aside class="sidebar">
+
+
+                <!-- CART -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Keranjang
+                        </h2>
+
+                        <span id="cartCount" class="cart-count">
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div id="cartItems">
+
+                        <div class="empty-cart">
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                            <p>
+                                Keranjang masih kosong
+                            </p>
+
+                            <small>
+                                Pilih produk untuk mulai berbelanja.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary">
+
+                        <div>
+                            <span>Subtotal</span>
+                            <strong id="subtotalAmount">
+                                Rp 0
+                            </strong>
+                        </div>
+
+                        <div class="discount">
+
+                            <span>
+                                Diskon Promo (10%)
+                            </span>
+
+                            <strong id="discountAmount">
+                                - Rp 0
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                PPN (11%)
+                            </span>
+
+                            <strong id="taxAmount">
+                                Rp 0
+                            </strong>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong id="totalAmount">
+                                Rp 0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="cart-buttons">
+
+                        <button
+                            id="btnExportExcel"
+                            class="excel-btn"
+                            disabled>
+
+                            <i class="fa-solid fa-file-excel"></i>
+
+                            Excel
+
+                        </button>
+
+
+                        <button
+                            id="btnCheckout"
+                            class="checkout-btn"
+                            disabled>
+
+                            <i class="fa-solid fa-receipt"></i>
+
+                            Checkout
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MUSIC -->
+
+                <div class="card">
+
+                    <h2 class="card-title">
+
+                        <i class="fa-solid fa-music"></i>
+
+                        Musik PawPastel
+
+                    </h2>
+
+
+                    <div class="video-container">
+
+                        <iframe
+                            id="videoPlayer"
+                            src="https://www.youtube.com/embed/jfKfPfyJRdk"
+                            title="PawPastel Music"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+
+                    <select id="songSelect">
+
+                        <option value="jfKfPfyJRdk">
+                            Lofi Chill
+                        </option>
+
+                        <option value="5qap5aO4i9A">
+                            Lofi Girl
+                        </option>
+
+                        <option value="DWcJFNfaw9c">
+                            Relaxing Piano
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- LOCATION -->
+
+                <div class="card">
+
+                    <h2 class="card-title">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        Lokasi Kami
+
+                    </h2>
+
+                    <p class="location-text">
+
+                        <strong>
+                            PawPastel Petshop
+                        </strong>
+
+                        <br>
+
+                        Jl. Pastel Ceria No. 88,
+                        Medan
+
+                        <br>
+
+                        Telp:
+                        (061) 7890-1234
+
+                    </p>
+
+
+                    <div id="map"></div>
+
+                </div>
+
+
+            </aside>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================= RECEIPT ================= -->
+
+<div id="receiptModal" class="modal hidden">
+
+    <div class="receipt">
+
+        <div class="receipt-top">
+
+            <div class="receipt-logo">
+                🐾
+            </div>
+
+            <h2>
+                PawPastel Petshop
+            </h2>
+
+            <p>
+                Jl. Pastel Ceria No. 88, Medan
+            </p>
+
+            <p>
+                Telp: (061) 7890-1234
+            </p>
+
+        </div>
+
+
+        <hr>
+
+
+        <div class="receipt-info">
+
+            <p>
+                No. Nota:
+                <strong id="receiptNo">
+                    -
+                </strong>
+            </p>
+
+            <p>
+                Tanggal:
+                <strong id="receiptDate">
+                    -
+                </strong>
+            </p>
+
+            <p>
+                Pelanggan:
+                <strong id="receiptCustomer">
+                    -
+                </strong>
+            </p>
+
+        </div>
+
+
+        <hr>
+
+
+        <div id="receiptDetails"></div>
+
+
+        <hr>
+
+
+        <div class="receipt-total">
+
+            <p>
+                Subtotal
+                <span id="rSubtotal">
+                    Rp 0
+                </span>
+            </p>
+
+            <p>
+                Diskon
+                <span id="rDiscount">
+                    - Rp 0
+                </span>
+            </p>
+
+            <p>
+                PPN
+                <span id="rTax">
+                    Rp 0
+                </span>
+            </p>
+
+            <p class="grand-total">
+                TOTAL
+                <span id="rTotal">
+                    Rp 0
+                </span>
+            </p>
+
+        </div>
+
+
+        <div class="receipt-footer">
+
+            <p>
+                🐾 Terima kasih telah berbelanja 🐾
+            </p>
+
+            <small>
+                Barang yang sudah dibeli tidak dapat ditukar.
+            </small>
+
+        </div>
+
+
+        <div class="receipt-actions">
+
+            <button
+                id="btnPrintReceipt"
+                class="checkout-btn">
+
+                <i class="fa-solid fa-print"></i>
+                Cetak
+
+            </button>
+
+
+            <button
+                id="btnCloseReceipt"
+                class="close-btn">
+
+                Tutup
+
+            </button>
+
+        </div>
+
     </div>
 
-    <!-- SheetJS for Excel Generation -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <!-- Leaflet Maps JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+</div>
+
+
+
+<!-- LIBRARY -->
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+<!-- JAVASCRIPT UTAMA -->
+
+<script src="script.js"></script>
+
 </body>
 </html>
