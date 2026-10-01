@@ -268,44 +268,29 @@ const btnPrintReceipt =
 
 /* ================= LOGIN ================= */
 
-loginForm.addEventListener("submit", function(event) {
+/* ================= LOGIN ================= */
 
+loginForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const username =
-        usernameInput.value.trim();
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
 
-    const password =
-        passwordInput.value.trim();
-
-
-    if (!username || !password) {
-
-        alert("Nama pengguna dan kata sandi wajib diisi.");
-
+    if (username === "" || password === "") {
+        alert("Username dan password wajib diisi!");
         return;
-
     }
-
 
     currentUser = username;
 
-    displayUsername.textContent =
-        currentUser;
-
+    displayUsername.textContent = currentUser;
 
     loginOverlay.classList.add("hidden");
-
     appContainer.classList.remove("hidden");
 
-
     renderProducts();
-
     initializeMap();
-
 });
-
-
 /* ================= LOGOUT ================= */
 
 btnLogout.addEventListener("click", function() {
